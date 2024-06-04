@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -62,8 +61,6 @@ class _AssetSettingScreenState extends ConsumerState<AssetSettingScreen> {
     provider = ref.watch(getAssetsGroupProvider);
     provider.init();
 
-    print('hi');
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('자산 설정'),
@@ -77,8 +74,7 @@ class _AssetSettingScreenState extends ConsumerState<AssetSettingScreen> {
                   return CardItem(
                     icon: provider.list[index].icon,
                     title: provider.list[index].name,
-                    // TODO: get balance from provider
-                    amount: 10000,
+                    amount: provider.list[index].totalBalance,
                   );
                 },
               ))
