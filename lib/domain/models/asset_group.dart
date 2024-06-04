@@ -40,24 +40,17 @@ class AssetGroup {
 class NewAssetGroup {
   String? name;
   IconData? icon;
-  double? balance;
   String? id;
   String? createdAt;
   String? updatedAt;
 
   NewAssetGroup(
-      {this.name,
-      this.icon,
-      this.id,
-      this.balance,
-      this.createdAt,
-      this.updatedAt});
+      {this.name, this.icon, this.id, this.createdAt, this.updatedAt});
 
   NewAssetGroup.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     icon = IconData(json['icon'], fontFamily: 'MaterialIcons');
     id = json['id'];
-    balance = json['balance'];
     createdAt = json['balance'];
     updatedAt = json['updatedAt'];
   }
@@ -67,7 +60,6 @@ class NewAssetGroup {
     data['name'] = name;
     data['icon'] = icon?.codePoint;
     data['id'] = id;
-    data['balance'] = balance;
     data['createdAt'] = createdAt;
     return data;
   }
