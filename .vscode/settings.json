@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["riverpod", "usecase"]
+  "cSpell.words": ["riverpod", "usecase"],
+  "cmake.ignoreCMakeListsMissing": true
 }
