@@ -17,5 +17,6 @@ class AssetGroupListProvider extends ChangeNotifier {
   }
 }
 
-final getAssetsGroupProvider = ChangeNotifierProvider<AssetGroupListProvider>(
-    (ref) => AssetGroupListProvider(ref: ref));
+final getAssetGroupListProvider =
+    ChangeNotifierProvider<AssetGroupListProvider>(
+        (ref) => AssetGroupListProvider(ref: ref));

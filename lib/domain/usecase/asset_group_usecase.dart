@@ -5,6 +5,7 @@ abstract class AssetGroupUseCase {
   Future<List<AssetGroup>> getAllAssetGroups();
   Future<NewAssetGroup> createNewAssetGroup(
       String name, int iconCode, double balance);
+  Future<AssetGroup> getAssetGroup(String id);
   // Future<NewAssetGroup> updateAssetGroupInfo(
   //     String id, String name, String job);
   // Future<void> deleteAssetGroupInfo(String id);
@@ -24,5 +25,10 @@ class AssetGroupUseCaseImpl extends AssetGroupUseCase {
   @override
   Future<List<AssetGroup>> getAllAssetGroups() {
     return assetGroupRepository.getAssetGroupList();
+  }
+
+  @override
+  Future<AssetGroup> getAssetGroup(String id) {
+    return assetGroupRepository.getAssetGroup(id);
   }
 }

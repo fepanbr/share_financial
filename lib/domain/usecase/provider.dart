@@ -17,3 +17,7 @@ final updateAssetGroupDataProvider = Provider<AssetGroupUseCase>((ref) {
 final deleteAssetGroupDataProvider = Provider<AssetGroupUseCase>((ref) {
   return AssetGroupUseCaseImpl(ref.read(deleteAssetGroupProvider));
 });
+
+final getAssetGroupProvider = Provider<AssetGroupUseCase>((ref) {
+  return AssetGroupUseCaseImpl(ref.read(assetGroupProvider));
+});

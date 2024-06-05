@@ -53,4 +53,15 @@ class AssetGroupRepositoryImpl implements AssetGroupRepository {
     // TODO: implement deleteAssetGroup
     throw UnimplementedError();
   }
+
+  @override
+  Future<AssetGroup> getAssetGroup(String id) async {
+    try {
+      final response = await DioClient.instance.get('/asset-group/$id');
+      return AssetGroup.fromJson(response);
+    } on DioException catch (e) {
+      var error = DioErrorException.fromDioError(e);
+      throw error.errorMessage;
+    }
+  }
 }

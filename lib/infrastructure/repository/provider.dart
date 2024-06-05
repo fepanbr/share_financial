@@ -18,3 +18,7 @@ final updateAssetGroupProvider = Provider<AssetGroupRepository>((ref) {
 final deleteAssetGroupProvider = Provider<AssetGroupRepository>((ref) {
   return AssetGroupRepositoryImpl();
 });
+
+final assetGroupProvider = Provider<AssetGroupRepository>((ref) {
+  return AssetGroupRepositoryImpl();
+});

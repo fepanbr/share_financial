@@ -8,4 +8,6 @@ abstract class AssetGroupRepository {
   Future<NewAssetGroup> updateAssetGroup(
       String id, String name, IconData icon, double balance);
   Future<void> deleteAssetGroup(String id);
+
+  Future<AssetGroup> getAssetGroup(String id);
 }
