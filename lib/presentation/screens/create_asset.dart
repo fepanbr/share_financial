@@ -4,6 +4,7 @@ import 'package:share_financial/core/internet_services/dio_client.dart';
 import 'package:share_financial/domain/models/asset.dart';
 import 'package:share_financial/infrastructure/repository/provider.dart';
 import 'package:share_financial/presentation/view_model/asset_group_provider.dart';
+import 'package:share_financial/presentation/view_model/asset_provider.dart';
 
 class CreateAssetScreen extends StatelessWidget {
   final int assetGroupId;
@@ -24,23 +25,20 @@ class FormComponent extends ConsumerStatefulWidget {
   final int assetGroupId;
   const FormComponent({super.key, required this.assetGroupId});
 
-
-  
-
   @override
   ConsumerState<FormComponent> createState() => _FormComponentState();
 }
 
 class _FormComponentState extends ConsumerState<FormComponent> {
-    final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _balanceController =
       TextEditingController(text: '0');
 
-@override
+  @override
   Widget build(BuildContext context) {
-    ref.read(AssetGroupProvider(widget.assetGroupId));
+    ref.watch(AssetGroupProvider(widget.assetGroupId));
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Form(
@@ -79,16 +77,18 @@ class _FormComponentState extends ConsumerState<FormComponent> {
                   return;
                 }
 
-                await DioClient.instance
-                    .post('/asset',
-                        data: Asset(
-                                name: _nameController.text,
-                                balance: double.parse(_balanceController.text))
-                            .toJson())
-                    .then((_) => {
-                      Navigator.pop(context);
-                      
-                    });
+                final asset = Asset(
+                  name: _nameController.text,
+                  balance: double.parse(_balanceController.text),
+                  assetGroupId: widget.assetGroupId,
+                );
+
+                await ref
+                    .read(assetListProvider(widget.assetGroupId).notifier)
+                    .addAsset(asset)
+                    .then(
+                      (value) => Navigator.pop(context),
+                    );
               },
               child: const Text('생성'),
             ),

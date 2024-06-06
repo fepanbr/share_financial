@@ -13,9 +13,8 @@ class AssetGroup {
   AssetGroup.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    icon = IconData(json['iconCode'], fontFamily: 'MaterialIcons');
-    assets = json['assets'].map<Asset>((e) => Asset.fromJson(e))
-    .toList();
+    icon = IconData(json['iconCode'] ?? 0, fontFamily: 'MaterialIcons');
+    assets = json['assets'].map<Asset>((e) => Asset.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {

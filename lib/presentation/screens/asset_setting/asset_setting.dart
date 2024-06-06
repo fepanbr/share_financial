@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:share_financial/domain/models/asset_group.dart';
 import 'package:share_financial/presentation/screens/create_asset.dart';
 import 'package:share_financial/presentation/view_model/asset_group_provider.dart';
+import 'package:share_financial/presentation/view_model/asset_provider.dart';
 
 var f = NumberFormat('###,###,###,###');
 
@@ -45,7 +46,7 @@ class _AssetListState extends ConsumerState<AssetList> {
   @override
   Widget build(BuildContext context) {
     final AsyncValue<AssetGroup> assetGroup =
-        ref.watch(assetGroupProvider(widget.id));
+        ref.watch(AssetListProvider(widget.id));
 
     return switch (assetGroup) {
       AsyncData(:final value) => Padding(
