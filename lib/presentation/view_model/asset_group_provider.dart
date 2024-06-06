@@ -1,6 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_financial/core/internet_services/dio_client.dart';
-import 'package:share_financial/domain/models/asset.dart';
 import 'package:share_financial/domain/models/asset_group.dart';
 
 part 'asset_group_provider.g.dart';

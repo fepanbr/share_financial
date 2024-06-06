@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:share_financial/domain/models/asset_group.dart';
 import 'package:share_financial/presentation/screens/create_asset.dart';
-import 'package:share_financial/presentation/view_model/asset_group_provider.dart';
 import 'package:share_financial/presentation/view_model/asset_provider.dart';
 
 var f = NumberFormat('###,###,###,###');

@@ -24,13 +24,13 @@ class SettingScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Option 2'),
+              title: const Text('Option 2'),
               onTap: () {
                 // Handle option 2 tap
               },
             ),
             ListTile(
-              title: Text('Option 3'),
+              title: const Text('Option 3'),
               onTap: () {
                 // Handle option 3 tap
               },

@@ -14,7 +14,7 @@ class AssetList extends _$AssetList {
   }
 
   Future<void> addAsset(Asset asset) async {
-    final response = await DioClient.instance.post(
+    await DioClient.instance.post(
       'asset',
       data: asset.toJson(),
     );
