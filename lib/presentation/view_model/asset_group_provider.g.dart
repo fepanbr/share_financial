@@ -6,7 +6,7 @@ part of 'asset_group_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$assetGroupHash() => r'a78a129e4e5947d094fd0f22baab78e0bcc1855b';
+String _$assetGroupList2Hash() => r'fe48a16becf2a2b1b6f820d7c5b7085f168359ca';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +29,36 @@ class _SystemHash {
   }
 }
 
-/// See also [assetGroup].
-@ProviderFor(assetGroup)
-const assetGroupProvider = AssetGroupFamily();
+abstract class _$AssetGroupList2
+    extends BuildlessAutoDisposeAsyncNotifier<AssetGroup> {
+  late final int assetGroupId;
 
-/// See also [assetGroup].
-class AssetGroupFamily extends Family<AsyncValue<AssetGroup>> {
-  /// See also [assetGroup].
-  const AssetGroupFamily();
+  FutureOr<AssetGroup> build(
+    int assetGroupId,
+  );
+}
 
-  /// See also [assetGroup].
-  AssetGroupProvider call(
+/// See also [AssetGroupList2].
+@ProviderFor(AssetGroupList2)
+const assetGroupList2Provider = AssetGroupList2Family();
+
+/// See also [AssetGroupList2].
+class AssetGroupList2Family extends Family<AsyncValue<AssetGroup>> {
+  /// See also [AssetGroupList2].
+  const AssetGroupList2Family();
+
+  /// See also [AssetGroupList2].
+  AssetGroupList2Provider call(
     int assetGroupId,
   ) {
-    return AssetGroupProvider(
+    return AssetGroupList2Provider(
       assetGroupId,
     );
   }
 
   @override
-  AssetGroupProvider getProviderOverride(
-    covariant AssetGroupProvider provider,
+  AssetGroupList2Provider getProviderOverride(
+    covariant AssetGroupList2Provider provider,
   ) {
     return call(
       provider.assetGroupId,
@@ -68,32 +77,30 @@ class AssetGroupFamily extends Family<AsyncValue<AssetGroup>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'assetGroupProvider';
+  String? get name => r'assetGroupList2Provider';
 }
 
-/// See also [assetGroup].
-class AssetGroupProvider extends AutoDisposeFutureProvider<AssetGroup> {
-  /// See also [assetGroup].
-  AssetGroupProvider(
+/// See also [AssetGroupList2].
+class AssetGroupList2Provider
+    extends AutoDisposeAsyncNotifierProviderImpl<AssetGroupList2, AssetGroup> {
+  /// See also [AssetGroupList2].
+  AssetGroupList2Provider(
     int assetGroupId,
   ) : this._internal(
-          (ref) => assetGroup(
-            ref as AssetGroupRef,
-            assetGroupId,
-          ),
-          from: assetGroupProvider,
-          name: r'assetGroupProvider',
+          () => AssetGroupList2()..assetGroupId = assetGroupId,
+          from: assetGroupList2Provider,
+          name: r'assetGroupList2Provider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$assetGroupHash,
-          dependencies: AssetGroupFamily._dependencies,
+                  : _$assetGroupList2Hash,
+          dependencies: AssetGroupList2Family._dependencies,
           allTransitiveDependencies:
-              AssetGroupFamily._allTransitiveDependencies,
+              AssetGroupList2Family._allTransitiveDependencies,
           assetGroupId: assetGroupId,
         );
 
-  AssetGroupProvider._internal(
+  AssetGroupList2Provider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -106,13 +113,20 @@ class AssetGroupProvider extends AutoDisposeFutureProvider<AssetGroup> {
   final int assetGroupId;
 
   @override
-  Override overrideWith(
-    FutureOr<AssetGroup> Function(AssetGroupRef provider) create,
+  FutureOr<AssetGroup> runNotifierBuild(
+    covariant AssetGroupList2 notifier,
   ) {
+    return notifier.build(
+      assetGroupId,
+    );
+  }
+
+  @override
+  Override overrideWith(AssetGroupList2 Function() create) {
     return ProviderOverride(
       origin: this,
-      override: AssetGroupProvider._internal(
-        (ref) => create(ref as AssetGroupRef),
+      override: AssetGroupList2Provider._internal(
+        () => create()..assetGroupId = assetGroupId,
         from: from,
         name: null,
         dependencies: null,
@@ -124,13 +138,15 @@ class AssetGroupProvider extends AutoDisposeFutureProvider<AssetGroup> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<AssetGroup> createElement() {
-    return _AssetGroupProviderElement(this);
+  AutoDisposeAsyncNotifierProviderElement<AssetGroupList2, AssetGroup>
+      createElement() {
+    return _AssetGroupList2ProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is AssetGroupProvider && other.assetGroupId == assetGroupId;
+    return other is AssetGroupList2Provider &&
+        other.assetGroupId == assetGroupId;
   }
 
   @override
@@ -142,17 +158,18 @@ class AssetGroupProvider extends AutoDisposeFutureProvider<AssetGroup> {
   }
 }
 
-mixin AssetGroupRef on AutoDisposeFutureProviderRef<AssetGroup> {
+mixin AssetGroupList2Ref on AutoDisposeAsyncNotifierProviderRef<AssetGroup> {
   /// The parameter `assetGroupId` of this provider.
   int get assetGroupId;
 }
 
-class _AssetGroupProviderElement
-    extends AutoDisposeFutureProviderElement<AssetGroup> with AssetGroupRef {
-  _AssetGroupProviderElement(super.provider);
+class _AssetGroupList2ProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<AssetGroupList2, AssetGroup>
+    with AssetGroupList2Ref {
+  _AssetGroupList2ProviderElement(super.provider);
 
   @override
-  int get assetGroupId => (origin as AssetGroupProvider).assetGroupId;
+  int get assetGroupId => (origin as AssetGroupList2Provider).assetGroupId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

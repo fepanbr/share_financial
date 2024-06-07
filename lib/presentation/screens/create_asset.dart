@@ -36,7 +36,7 @@ class _FormComponentState extends ConsumerState<FormComponent> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(AssetGroupProvider(widget.assetGroupId));
+    ref.watch(AssetGroupList2Provider(widget.assetGroupId));
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Form(
