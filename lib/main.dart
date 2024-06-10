@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_financial/presentation/screens/financial_table/financial_table.dart';
 import 'package:share_financial/presentation/screens/setting/setting.dart';
 import 'package:share_financial/theme.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MainApp()));
+  initializeDateFormatting()
+      .then((_) => runApp(const ProviderScope(child: MainApp())));
 }
 
 class MainApp extends StatelessWidget {
@@ -38,7 +41,7 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Text('Index 0: 가계부'),
+    ShareFinancialScreen(),
     Text('Index 1: 일정'),
     SettingScreen(),
   ];
