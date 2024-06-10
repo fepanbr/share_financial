@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_financial/domain/models/asset.dart';
-import 'package:share_financial/presentation/view_model/asset_group_provider.dart';
-import 'package:share_financial/presentation/view_model/asset_provider.dart';
+import 'package:share_financial/presentation/view_model/asset_list_provider.dart';
 
 class CreateAssetScreen extends StatelessWidget {
   final int assetGroupId;
@@ -36,7 +35,7 @@ class _FormComponentState extends ConsumerState<FormComponent> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(AssetGroupList2Provider(widget.assetGroupId));
+    ref.watch(AssetListProvider(widget.assetGroupId));
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Form(

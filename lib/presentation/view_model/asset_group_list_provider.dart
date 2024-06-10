@@ -1,22 +1,35 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:share_financial/core/internet_services/dio_client.dart';
 import 'package:share_financial/domain/models/asset_group.dart';
-import 'package:share_financial/domain/usecase/provider.dart';
 
-class AssetGroupListProvider extends ChangeNotifier {
-  final ChangeNotifierProviderRef ref;
-  List<AssetGroup> list = [];
-  bool haveData = false;
+part 'asset_group_list_provider.g.dart';
 
-  AssetGroupListProvider({required this.ref});
+@riverpod
+class AssetGroupList extends _$AssetGroupList {
+  @override
+  Future<List<AssetGroup>> build() async {
+    final response = await DioClient.instance.get('/asset-group');
+    final valueMap = response['assetGroups'];
+    return List<AssetGroup>.from(
+        valueMap.map((e) => AssetGroup.fromJson(e)).toList());
+  }
 
-  Future<void> init() async {
-    list = await ref.watch(assetsGroupListProvider).getAllAssetGroups();
-    haveData = true;
-    notifyListeners();
+  Future<void> addAssetGroup(AssetGroup assetGroup) async {
+    await DioClient.instance.post(
+      '/asset-group',
+      data: assetGroup.toJson(),
+    );
+
+    ref.invalidateSelf();
+
+    await future;
+  }
+
+  Future<void> deleteAssetGroup(int id) async {
+    await DioClient.instance.delete('/asset-group/$id');
+
+    ref.invalidateSelf();
+
+    await future;
   }
 }
-
-final getAssetGroupListProvider =
-    ChangeNotifierProvider<AssetGroupListProvider>(
-        (ref) => AssetGroupListProvider(ref: ref));

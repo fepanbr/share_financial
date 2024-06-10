@@ -33,31 +33,3 @@ class AssetGroup {
     return total;
   }
 }
-
-class NewAssetGroup {
-  String? name;
-  IconData? icon;
-  String? id;
-  String? createdAt;
-  String? updatedAt;
-
-  NewAssetGroup(
-      {this.name, this.icon, this.id, this.createdAt, this.updatedAt});
-
-  NewAssetGroup.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    icon = IconData(json['icon'], fontFamily: 'MaterialIcons');
-    id = json['id'];
-    createdAt = json['balance'];
-    updatedAt = json['updatedAt'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['icon'] = icon?.codePoint;
-    data['id'] = id;
-    data['createdAt'] = createdAt;
-    return data;
-  }
-}

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_financial/core/internet_services/dio_client.dart';
 import 'package:share_financial/domain/models/asset_group.dart';
+import 'package:share_financial/presentation/view_model/asset_group_list_provider.dart';
 
 class CreateAssetGroupScreen extends StatelessWidget {
   const CreateAssetGroupScreen({super.key});
@@ -16,11 +18,16 @@ class CreateAssetGroupScreen extends StatelessWidget {
   }
 }
 
-class FormComponent extends StatelessWidget {
-  FormComponent({
+class FormComponent extends ConsumerStatefulWidget {
+  const FormComponent({
     super.key,
   });
 
+  @override
+  ConsumerState<FormComponent> createState() => _FormComponentState();
+}
+
+class _FormComponentState extends ConsumerState<FormComponent> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
@@ -52,13 +59,12 @@ class FormComponent extends StatelessWidget {
               ),
               onPressed: () async {
                 if (_key.currentState!.validate()) {
-                  await DioClient.instance
-                      .post('/asset-group',
-                          data: AssetGroup(
-                                  assets: [],
-                                  name: _nameController.text,
-                                  icon: Icons.wallet)
-                              .toJson())
+                  ref
+                      .read(assetGroupListProvider.notifier)
+                      .addAssetGroup(AssetGroup(
+                          assets: [],
+                          name: _nameController.text,
+                          icon: Icons.wallet))
                       .then((_) => Navigator.pop(context));
                 }
               },

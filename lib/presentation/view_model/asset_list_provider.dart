@@ -3,7 +3,7 @@ import 'package:share_financial/core/internet_services/dio_client.dart';
 import 'package:share_financial/domain/models/asset.dart';
 import 'package:share_financial/domain/models/asset_group.dart';
 
-part 'asset_provider.g.dart';
+part 'asset_list_provider.g.dart';
 
 @riverpod
 class AssetList extends _$AssetList {
