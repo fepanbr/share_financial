@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_financial/presentation/screens/add_financial/add_financial.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ShareFinancialScreen extends StatefulWidget {
@@ -24,6 +25,15 @@ class _ShareFinancialScreenState extends State<ShareFinancialScreen> {
               focusedDay: DateTime.now(),
               locale: 'ko_KR'),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const AddFinancialScreen()));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
