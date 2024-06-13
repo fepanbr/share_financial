@@ -12,7 +12,7 @@ class CreateAssetGroupScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('자산 그룹 생성'),
       ),
-      body: FormComponent(),
+      body: const FormComponent(),
     );
   }
 }
