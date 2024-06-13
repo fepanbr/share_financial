@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:share_financial/core/internet_services/dio_client.dart';
 import 'package:share_financial/domain/models/asset_group.dart';
 import 'package:share_financial/presentation/view_model/asset_group_list_provider.dart';
 

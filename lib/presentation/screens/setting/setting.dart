@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_financial/presentation/screens/asset_group_setting/asset_group_setting.dart';
+import 'package:share_financial/presentation/screens/target_setting/target_setting.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -24,9 +25,13 @@ class SettingScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Option 2'),
+              title: const Text('객체 설정'),
               onTap: () {
                 // Handle option 2 tap
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const TargetSettingScreen()));
               },
             ),
             ListTile(
