@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_financial/presentation/screens/asset_group_setting/asset_group_setting.dart';
+import 'package:share_financial/presentation/screens/category_setting/category_setting.dart';
 import 'package:share_financial/presentation/screens/target_setting/target_setting.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -35,9 +36,13 @@ class SettingScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Option 3'),
+              title: const Text('카테고리 설정'),
               onTap: () {
                 // Handle option 3 tap
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CategorySettingScreen()));
               },
             ),
             // Add more ListTiles as needed

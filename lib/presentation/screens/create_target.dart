@@ -28,6 +28,7 @@ class _CreateTargetScreenState extends ConsumerState<CreateTargetScreen> {
                 decoration: const InputDecoration(
                   labelText: '객체 이름',
                 ),
+                autofocus: true,
               ),
               const SizedBox(height: 10),
               TextField(
