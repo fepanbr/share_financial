@@ -1,28 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_financial/domain/models/category.dart';
+import 'package:share_financial/presentation/screens/create_category.dart';
+import 'package:share_financial/presentation/view_model/category_list_provider.dart';
 
-class CategorySettingScreen extends StatefulWidget {
+class CategorySettingScreen extends ConsumerStatefulWidget {
   const CategorySettingScreen({super.key});
 
   @override
-  State<CategorySettingScreen> createState() => _CategorySettingScreenState();
+  ConsumerState<CategorySettingScreen> createState() =>
+      _CategorySettingScreenState();
 }
 
-class _CategorySettingScreenState extends State<CategorySettingScreen> {
+class _CategorySettingScreenState extends ConsumerState<CategorySettingScreen> {
   @override
   Widget build(BuildContext context) {
+    AsyncValue<List<Category>> categoryList = ref.watch(categoryListProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('카테고리 설정'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView.separated(
-            itemBuilder: (context, index) => ListTile(
-                leading: const Icon(Icons.category),
-                title: Text('카테고리 $index')),
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: 2),
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('카테고리 설정'),
+        ),
+        body: switch (categoryList) {
+          AsyncData(:final value) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: value.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      child: Icon(value[index].icon),
+                    ),
+                    title: Text(value[index].name),
+                  );
+                },
+              ),
+            ),
+          // AsyncError() => const Center(child: CircularProgressIndicator()),
+          _ => const Center(child: Text('Error')),
+        },
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Handle option 3 tap
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CreateCategoryScreen()));
+          },
+          child: const Icon(Icons.add),
+        ));
   }
 }
