@@ -10,7 +10,7 @@ class Category {
   Category.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    icon = IconData(int.parse(json['iconCode']), fontFamily: 'MaterialIcons');
+    icon = IconData(json['iconCode'], fontFamily: 'MaterialIcons');
   }
 
   Map<String, dynamic> toJson() {
@@ -33,7 +33,7 @@ class NewCategory {
     final Map<String, dynamic> data = <String, dynamic>{};
 
     data['name'] = name;
-    data['iconCode'] = icon.codePoint.toString();
+    data['iconCode'] = icon.codePoint;
     return data;
   }
 }

@@ -10,18 +10,16 @@ class CategoryList extends _$CategoryList {
   Future<List<Category>> build() async {
     final response = await DioClient.instance.get('/category');
     final valueMap = response['categoryList'];
-    return List<Category>.from(valueMap.map((e) => Category.fromJson(e)))
-        .toList();
+      return List<Category>.from(valueMap.map((e) => Category.fromJson(e)).toList());
   }
 
   Future<void> addCategory(NewCategory category) async {
     try {
-      Category response = await DioClient.instance
+      await DioClient.instance
           .post(
             '/category',
             data: category.toJson(),
-          )
-          .then((value) => Category.fromJson(value));
+          );
 
       ref.invalidateSelf();
 
