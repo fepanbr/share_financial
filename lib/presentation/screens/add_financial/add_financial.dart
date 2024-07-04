@@ -1,5 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:share_financial/domain/models/asset.dart';
+import 'package:share_financial/domain/models/transaction.dart';
+import 'package:share_financial/presentation/screens/asset_group_setting/asset_group_setting.dart';
+import 'package:share_financial/presentation/screens/category_setting/category_setting.dart';
+import 'package:share_financial/domain/models/category.dart'
+    as FinancialCategory;
+import 'package:share_financial/presentation/view_model/add_financial_provider.dart';
 
 class AddFinancialScreen extends StatefulWidget {
   const AddFinancialScreen({super.key});
@@ -58,18 +67,26 @@ class _AddFinancialScreenState extends State<AddFinancialScreen>
   }
 }
 
-class ExpenditureInput extends StatefulWidget {
+class ExpenditureInput extends ConsumerStatefulWidget {
   const ExpenditureInput({super.key});
 
   @override
-  State<ExpenditureInput> createState() => ExpenditureInputState();
+  ConsumerState<ExpenditureInput> createState() => ExpenditureInputState();
 }
 
-class ExpenditureInputState extends State<ExpenditureInput> {
+class ExpenditureInputState extends ConsumerState<ExpenditureInput> {
   final _dateController = TextEditingController(
       text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
   final _amountController = TextEditingController(text: "0");
   final _contentController = TextEditingController();
+  final _categoryController = TextEditingController();
+  final _assetController = TextEditingController();
+
+  FinancialCategory.Category? _category;
+  Asset? _asset;
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -110,6 +127,7 @@ class ExpenditureInputState extends State<ExpenditureInput> {
           decoration:
               const InputDecoration(labelText: '금액', icon: Icon(Icons.money)),
           keyboardType: TextInputType.number,
+          autofocus: true,
         ),
         const SizedBox(
           height: 20,
@@ -119,10 +137,77 @@ class ExpenditureInputState extends State<ExpenditureInput> {
           decoration:
               const InputDecoration(labelText: '내용', icon: Icon(Icons.edit)),
         ),
+        const SizedBox(
+          height: 20,
+        ),
+        TextField(
+          controller: _categoryController,
+          decoration: const InputDecoration(
+            labelText: '카테고리',
+            icon: Icon(Icons.category),
+          ),
+          readOnly: true,
+          onTap: () async {
+            var result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CategorySettingScreen()));
+
+            if (!context.mounted) return;
+            if (result == null) return;
+
+            if (result is FinancialCategory.Category) {
+              setState(() {
+                _category = result;
+              });
+              _categoryController.text = result.name;
+            }
+          },
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        TextField(
+          controller: _assetController,
+          decoration:
+              const InputDecoration(labelText: '자산', icon: Icon(Icons.person)),
+              onTap: () async {
+                var result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AssetGroupSettingScreen()));
+
+            if (!context.mounted) return;
+            if (result == null) return;
+
+            if (result is FinancialCategory.Category) {
+              setState(() {
+                _category = result;
+              });
+              _categoryController.text = result.name;
+            }
+              },
+        ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
           child: ElevatedButton(
             onPressed: () {
+              print(_dateController.text);
+              print(_amountController.text);
+              print(_contentController.text);
+              print(_categoryController.text);
+              print(_assetController.text);
+
+              ref.read(transactionListProvider.notifier).addTransaction(NewTransaction(
+                memo: _contentController.text,
+                amount: double.parse(_amountController.text),
+                date: DateTime.parse(_dateController.text),
+                targetId: '1',
+                categoryId: _category!.id,
+                assetId: ,
+              
+              ));
+
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(),

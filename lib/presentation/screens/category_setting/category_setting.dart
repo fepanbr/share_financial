@@ -21,28 +21,28 @@ class _CategorySettingScreenState extends ConsumerState<CategorySettingScreen> {
           title: const Text('카테고리 설정'),
         ),
         body: switch (categoryList) {
-          AsyncData(:final value) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.separated(
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: value.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: CircleAvatar(
-                      child: Icon(value[index].icon),
-                    ),
-                    title: Text(value[index].name),
-                  );
-                },
-              ),
+          AsyncData(:final value) => ListView.separated(
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: value.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(value[index].icon),
+                  ),
+                  title: Text(value[index].name),
+                  onTap: () {
+                    Navigator.pop(context, value[index]);
+                  },
+                );
+              },
             ),
           // AsyncError() => const Center(child: CircularProgressIndicator()),
           _ => const Center(child: Text('Error')),
         },
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
             // Handle option 3 tap
-            Navigator.push(
+            await Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => CreateCategoryScreen()));
