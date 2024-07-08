@@ -62,6 +62,9 @@ class _AssetListState extends ConsumerState<AssetList> {
                     Text('${f.format(value.assets[index].balance)} 원'),
                   ],
                 ),
+                onTap: () {
+                  Navigator.pop(context, value.assets[index]);
+                },
               );
             },
           ),

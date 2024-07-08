@@ -1,13 +1,14 @@
 import 'package:share_financial/domain/models/asset.dart';
 import 'package:share_financial/domain/models/category.dart';
 import 'package:share_financial/domain/models/target.dart';
+import 'package:share_financial/domain/models/user.dart';
 
 class Transaction {
   final String id;
   final String memo;
   final double amount;
   final DateTime date;
-  final Target target;
+  final User user;
   final Category category;
   final Asset asset;
 
@@ -16,7 +17,7 @@ class Transaction {
     required this.memo,
     required this.amount,
     required this.date,
-    required this.target,
+    required this.user,
     required this.category,
     required this.asset,
   });
@@ -27,7 +28,7 @@ class Transaction {
       memo: json['title'],
       amount: json['amount'],
       date: DateTime.parse(json['date']),
-      target: Target.fromJson(json['target']),
+      user: User.fromJson(json['user']),
       category: Category.fromJson(json['category']),
       asset: Asset.fromJson(json['asset']),
     );
@@ -38,7 +39,7 @@ class NewTransaction {
   final String memo;
   final double amount;
   final DateTime date;
-  final int targetId;
+  final int userId;
   final int categoryId;
   final int assetId;
 
@@ -46,7 +47,7 @@ class NewTransaction {
     required this.memo,
     required this.amount,
     required this.date,
-    required this.targetId,
+    required this.userId,
     required this.categoryId,
     required this.assetId,
   });
@@ -57,7 +58,7 @@ class NewTransaction {
       'amount': amount,
       'date':
           '${date.year}${date.month.toString().padLeft(2, '0')}${date.day.toString().padLeft(2, '0')}',
-      'targetId': targetId,
+      'userId': userId,
       'categoryId': categoryId,
       'assetId': assetId,
     };

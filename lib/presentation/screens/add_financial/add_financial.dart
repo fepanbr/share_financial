@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -85,8 +87,6 @@ class ExpenditureInputState extends ConsumerState<ExpenditureInput> {
   FinancialCategory.Category? _category;
   Asset? _asset;
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -171,8 +171,8 @@ class ExpenditureInputState extends ConsumerState<ExpenditureInput> {
           controller: _assetController,
           decoration:
               const InputDecoration(labelText: '자산', icon: Icon(Icons.person)),
-              onTap: () async {
-                var result = await Navigator.push(
+          onTap: () async {
+            var result = await Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => const AssetGroupSettingScreen()));
@@ -180,13 +180,13 @@ class ExpenditureInputState extends ConsumerState<ExpenditureInput> {
             if (!context.mounted) return;
             if (result == null) return;
 
-            if (result is FinancialCategory.Category) {
+            if (result is Asset) {
               setState(() {
-                _category = result;
+                _asset = result;
               });
-              _categoryController.text = result.name;
+              _assetController.text = result.name;
             }
-              },
+          },
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
@@ -198,17 +198,19 @@ class ExpenditureInputState extends ConsumerState<ExpenditureInput> {
               print(_categoryController.text);
               print(_assetController.text);
 
-              ref.read(transactionListProvider.notifier).addTransaction(NewTransaction(
-                memo: _contentController.text,
-                amount: double.parse(_amountController.text),
-                date: DateTime.parse(_dateController.text),
-                targetId: '1',
-                categoryId: _category!.id,
-                assetId: ,
-              
-              ));
-
-              Navigator.pop(context);
+              ref
+                  .read(transactionListProvider.notifier)
+                  .addTransaction(NewTransaction(
+                    memo: _contentController.text,
+                    amount: double.parse(_amountController.text),
+                    date: DateTime.parse(_dateController.text),
+                    userId: 1,
+                    categoryId: _category?.id ?? 0,
+                    assetId: _asset?.id ?? 0,
+                  ))
+                  .then(() {
+                    Navigator.pop(context);
+                  } as FutureOr Function(void value));
             },
             style: ElevatedButton.styleFrom(),
             child: const Text('저장'),

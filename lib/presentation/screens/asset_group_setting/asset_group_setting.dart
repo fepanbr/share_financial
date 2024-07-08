@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:share_financial/domain/models/asset.dart';
 import 'package:share_financial/domain/models/asset_group.dart';
 import 'package:share_financial/presentation/screens/asset_setting/asset_setting.dart';
 import 'package:share_financial/presentation/screens/create_asset_group.dart';
@@ -79,13 +80,20 @@ class _CardItemState extends ConsumerState<CardItem> {
           ],
         ),
       ),
-      onTap: () {
-        Navigator.push(
+      onTap: () async {
+        var result = await Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => AssetSettingScreen(id: widget.assetGroup.id!),
           ),
         );
+
+        if (!context.mounted) return;
+        if (result == null) return;
+
+        if (result is Asset) {
+          Navigator.pop(context, result);
+        }
       },
       onLongPress: () {
         // alert dialog
