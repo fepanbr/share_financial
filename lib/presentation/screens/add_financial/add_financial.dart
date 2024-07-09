@@ -208,9 +208,9 @@ class ExpenditureInputState extends ConsumerState<ExpenditureInput> {
                     categoryId: _category?.id ?? 0,
                     assetId: _asset?.id ?? 0,
                   ))
-                  .then(() {
-                    Navigator.pop(context);
-                  } as FutureOr Function(void value));
+                  .then(
+                    (value) => Navigator.pop(context),
+                  );
             },
             style: ElevatedButton.styleFrom(),
             child: const Text('저장'),

@@ -13,7 +13,7 @@ class TransactionList extends _$TransactionList {
   Future<void> addTransaction(NewTransaction financial) async {
     // Add financial logic
     var response = DioClient.instance.post(
-      '/financial',
+      '/transaction',
       data: financial.toJson(),
     );
 
