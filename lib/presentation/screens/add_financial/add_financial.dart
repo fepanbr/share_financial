@@ -192,12 +192,6 @@ class ExpenditureInputState extends ConsumerState<ExpenditureInput> {
           padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
           child: ElevatedButton(
             onPressed: () {
-              print(_dateController.text);
-              print(_amountController.text);
-              print(_contentController.text);
-              print(_categoryController.text);
-              print(_assetController.text);
-
               ref
                   .read(transactionListProvider.notifier)
                   .addTransaction(NewTransaction(
