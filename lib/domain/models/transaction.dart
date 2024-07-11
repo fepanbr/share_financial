@@ -1,10 +1,9 @@
 import 'package:share_financial/domain/models/asset.dart';
 import 'package:share_financial/domain/models/category.dart';
-import 'package:share_financial/domain/models/target.dart';
 import 'package:share_financial/domain/models/user.dart';
 
 class Transaction {
-  final String id;
+  final int id;
   final String memo;
   final double amount;
   final DateTime date;
@@ -25,8 +24,8 @@ class Transaction {
   factory Transaction.fromJson(Map<String, dynamic> json) {
     return Transaction(
       id: json['id'],
-      memo: json['title'],
-      amount: json['amount'],
+      memo: json['memo'],
+      amount: double.parse(json['amount']),
       date: DateTime.parse(json['date']),
       user: User.fromJson(json['user']),
       category: Category.fromJson(json['category']),
@@ -38,7 +37,7 @@ class Transaction {
 class NewTransaction {
   final String memo;
   final double amount;
-  final DateTime date;
+  final String date;
   final int userId;
   final int categoryId;
   final int assetId;
@@ -56,8 +55,7 @@ class NewTransaction {
     return {
       'memo': memo,
       'amount': amount,
-      'date':
-          '${date.year}${date.month.toString().padLeft(2, '0')}${date.day.toString().padLeft(2, '0')}',
+      'date': date,
       'userId': userId,
       'categoryId': categoryId,
       'assetId': assetId,

@@ -10,7 +10,7 @@ import 'package:share_financial/presentation/screens/asset_group_setting/asset_g
 import 'package:share_financial/presentation/screens/category_setting/category_setting.dart';
 import 'package:share_financial/domain/models/category.dart'
     as FinancialCategory;
-import 'package:share_financial/presentation/view_model/add_financial_provider.dart';
+import 'package:share_financial/presentation/view_model/transaction_provider.dart';
 
 class AddFinancialScreen extends StatefulWidget {
   const AddFinancialScreen({super.key});
@@ -193,11 +193,13 @@ class ExpenditureInputState extends ConsumerState<ExpenditureInput> {
           child: ElevatedButton(
             onPressed: () {
               ref
-                  .read(transactionListProvider.notifier)
+                  .read(TransactionListProvider(DateTime.now()).notifier)
                   .addTransaction(NewTransaction(
                     memo: _contentController.text,
-                    amount: double.parse(_amountController.text),
-                    date: DateTime.parse(_dateController.text),
+                    amount: -double.parse(_amountController.text),
+                    date:
+                        DateTime.parse('${_dateController.text}T00:00:00.000Z')
+                            .toIso8601String(),
                     userId: 1,
                     categoryId: _category?.id ?? 0,
                     assetId: _asset?.id ?? 0,
